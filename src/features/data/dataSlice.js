@@ -7,11 +7,11 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     addData: (state, action) => {
-      state = action.payload
+      state.push(...action.payload)
     }
   }
 });
 
-export const { addData} = dataSlice.actions;
+export const { addData } = dataSlice.actions;
 
 export default dataSlice.reducer;
