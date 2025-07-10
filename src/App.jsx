@@ -1,33 +1,38 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { addData } from "./features/data/dataSlice";
+import { Loader } from "./components/Load";
+import { CardsList } from "./components/CardsList";
 
 
 function App() {
-  const data = useSelector(state => state.data)
+  const currentPage = useSelector(state => state.page)
   const dispatch = useDispatch()
   const [load, setLoad] = useState(true)
 
   useEffect(() => {
+    setLoad(true);
 
     async function addInfo() {
-      const response = await fetch("https://rickandmortyapi.com/api/character/?page=1")
+      const response = await fetch(`https://rickandmortyapi.com/api/character/?page=${currentPage}`)
       const info = await response.json();
       dispatch(addData(info.results))
+      setLoad(false)
     }
     setTimeout(() => {
       addInfo();
-      setLoad(false)
-    }, 2000)
-  }, [])
-  
+    }, 1000)
+  }, [currentPage])
+
   return (
-    <>
-    {
-      load && <h2 style={{color: "white"}}>Cargando...</h2>
-    }
-      <h1>Api Rick and Morty</h1>
-    </>
+    <section className="container py-5">
+      {
+        load ?
+          <Loader />
+          :
+          <CardsList />
+      }
+    </section>
   )
 }
 

@@ -7,7 +7,12 @@ export const dataSlice = createSlice({
   initialState,
   reducers: {
     addData: (state, action) => {
-      state.push(...action.payload)
+      // const news = action.payload.filter(
+      //   char => !state.some(existing => existing.id === char.id)
+      // );
+      // state.push(...news);
+      state.length = 0;             // Limpia el array
+      state.push(...action.payload); // Agrega nueva página
     }
   }
 });
