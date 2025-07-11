@@ -5,7 +5,7 @@ const Cards = () => {
   const data = useSelector(state => state.data)
 
   return (
-    <section className="row row-cols-4 g-3">
+    <section className="row row-cols-md-4 g-3 row-cols-1">
       {
         data.map(card => (
           <div className="col" key={card.id}>
